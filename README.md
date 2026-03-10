@@ -316,7 +316,7 @@ compute_risk_score(
 
 ## 6. Application Tabs — Feature Guide
 
-### Tab 1 — 💊 Medicine Interaction Checker
+### Tab 1 — Medicine Interaction Checker
 
 **Use case:** User enters medicines they are taking (or those extracted by OCR).
 
@@ -329,13 +329,13 @@ compute_risk_score(
 5. The Medicine Details expander reveals generic name, salt, category, and brand names for each identified medicine.
 6. Interaction Analysis scans all pairs against the 15 interaction rules:
    - **No interactions:** Green success message.
-   - **Interactions found:** Severity-coloured cards (🔴 HIGH / 🟠 MODERATE / 🟡 LOW) with warning text.
+   - **Interactions found:** Severity-coloured cards (HIGH / MODERATE / LOW) with warning text.
    - If Ollama is running, an AI safety note is generated for each interaction.
 7. Results are stored in session state so the side-effect tab can reference them.
 
 ---
 
-### Tab 2 — 📄 Prescription OCR
+### Tab 2 — Prescription OCR
 
 **Use case:** User uploads a photo of a handwritten or printed prescription.
 
@@ -353,7 +353,7 @@ compute_risk_score(
 
 ---
 
-### Tab 3 — 🩺 Symptom & Doubt Solver
+### Tab 3 — Symptom & Doubt Solver
 
 **Use case:** User wants to understand their symptoms and get safe management advice.
 
@@ -370,7 +370,7 @@ compute_risk_score(
 
 ---
 
-### Tab 4 — ⚠️ Side-Effect Monitor
+### Tab 4 — Side-Effect Monitor
 
 **Use case:** User has started a new medicine and wants to log and understand an unexpected symptom.
 
@@ -384,7 +384,7 @@ compute_risk_score(
 
 ---
 
-### Tab 5 — 🚨 Emergency Risk Predictor
+### Tab 5 — Emergency Risk Predictor
 
 **Use case:** User or carer wants to quickly determine how urgent a set of symptoms is.
 

@@ -45,7 +45,7 @@ logger = logging.getLogger(__name__)
 # ─────────────────────────────────────────────
 st.set_page_config(
     page_title="MedSafe AI – Intelligent Medicine Safety Assistant",
-    page_icon="🩺",
+    page_icon="+",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
@@ -185,7 +185,7 @@ st.markdown(
 st.markdown(
     """
     <div class="medsafe-header">
-        <h1>🩺 MedSafe AI &ndash; Intelligent Medicine Safety Assistant</h1>
+        <h1>MedSafe AI &ndash; Intelligent Medicine Safety Assistant</h1>
         <div class="subtitle">
             AI-powered medicine safety, prescription analysis, symptom guidance &amp; risk assessment &nbsp;|&nbsp;
             <em>For educational use only – not a substitute for professional medical advice</em>
@@ -214,11 +214,11 @@ if "last_ocr_text" not in st.session_state:
 # ─────────────────────────────────────────────
 tab1, tab2, tab3, tab4, tab5 = st.tabs(
     [
-        "💊 Medicine Interaction Checker",
-        "📄 Prescription OCR",
-        "🩺 Symptom & Doubt Solver",
-        "⚠️ Side-Effect Monitor",
-        "🚨 Emergency Risk Predictor",
+        "Medicine Interaction Checker",
+        "Prescription OCR",
+        "Symptom & Doubt Solver",
+        "Side-Effect Monitor",
+        "Emergency Risk Predictor",
     ]
 )
 
@@ -226,7 +226,7 @@ tab1, tab2, tab3, tab4, tab5 = st.tabs(
 # TAB 1 – MEDICINE INTERACTION CHECKER
 # ═══════════════════════════════════════════════════════════════════════════
 with tab1:
-    st.markdown("## 💊 Medicine Interaction Checker")
+    st.markdown("## Medicine Interaction Checker")
     st.markdown(
         "Enter multiple medicine names (comma-separated) to check for known drug–drug interactions."
     )
@@ -241,13 +241,13 @@ with tab1:
             key="med_interaction_input",
         )
 
-        check_btn = st.button("🔍 Check Interactions", key="check_interactions_btn")
+        check_btn = st.button("Check Interactions", key="check_interactions_btn")
 
     with col_info:
         st.markdown(
             """
             <div class="med-card" style="font-size:0.82rem; color:#adb5bd;">
-            <b>💡 How it works</b><br>
+            <b>How it works</b><br>
             1. Enter medicine names separated by commas<br>
             2. Uses fuzzy matching to identify medicines<br>
             3. Cross-checks against known interaction database<br>
@@ -260,7 +260,7 @@ with tab1:
     if check_btn:
         if not med_input.strip():
             st.markdown(
-                '<div class="error-box">⚠️ Please enter at least one medicine name.</div>',
+                '<div class="error-box">Please enter at least one medicine name.</div>',
                 unsafe_allow_html=True,
             )
         else:
@@ -279,14 +279,14 @@ with tab1:
                         unrecognized.append(raw)
 
             # Show identification results
-            st.markdown("### 🔎 Identified Medicines")
+            st.markdown("### Identified Medicines")
             if identified:
                 badges = "".join(
-                    f'<span class="pill-badge">✅ {m.title()}</span>' for m in identified
+                    f'<span class="pill-badge">{m.title()}</span>' for m in identified
                 )
                 if unrecognized:
                     badges += "".join(
-                        f'<span class="pill-badge" style="color:#ff8080;">❓ {m}</span>'
+                        f'<span class="pill-badge" style="color:#ff8080;">{m} (unrecognized)</span>'
                         for m in unrecognized
                     )
                 st.markdown(badges, unsafe_allow_html=True)
@@ -298,7 +298,7 @@ with tab1:
 
             if identified:
                 # Show medicine info
-                with st.expander("📋 Medicine Details", expanded=False):
+                with st.expander("Medicine Details", expanded=False):
                     for med in identified:
                         info = get_medicine_info(med)
                         if info:
@@ -313,17 +313,17 @@ with tab1:
                 warnings = check_interactions(identified)
                 st.session_state.interaction_results = warnings
 
-                st.markdown("### ⚡ Interaction Analysis")
+                st.markdown("### Interaction Analysis")
 
                 if not warnings:
                     st.success(
-                        "✅ No known interactions detected among the identified medicines. "
+                        "No known interactions detected among the identified medicines. "
                         "Always consult your doctor before combining any medications."
                     )
                     logger.info(f"Interaction check: no interactions for {identified}")
                 else:
                     st.markdown(
-                        f'<div class="warning-box">🔴 <b>{len(warnings)} interaction(s) detected.</b> '
+                        f'<div class="warning-box"><b>{len(warnings)} interaction(s) detected.</b> '
                         "Review carefully and consult your doctor.</div>",
                         unsafe_allow_html=True,
                     )
@@ -334,12 +334,10 @@ with tab1:
                             "MODERATE": "interaction-mod",
                             "LOW": "interaction-low",
                         }.get(severity, "")
-                        severity_emoji = {"HIGH": "🔴", "MODERATE": "🟠", "LOW": "🟡"}.get(severity, "⚪")
-
                         st.markdown(
                             f"""
                             <div class="med-card {css_class}">
-                                <b>{severity_emoji} Severity: {severity}</b><br>
+                                <b>Severity: {severity}</b><br>
                                 {w['warning']}
                             </div>
                             """,
@@ -356,7 +354,7 @@ with tab1:
                                     )
                                 if ai_exp:
                                     st.markdown(
-                                        f'<div class="ai-advice">🤖 <b>AI Safety Note:</b> {ai_exp}</div>',
+                                        f'<div class="ai-advice"><b>AI Safety Note:</b> {ai_exp}</div>',
                                         unsafe_allow_html=True,
                                     )
 
@@ -366,7 +364,7 @@ with tab1:
 # TAB 2 – PRESCRIPTION OCR
 # ═══════════════════════════════════════════════════════════════════════════
 with tab2:
-    st.markdown("## 📄 Extract Medicines From Prescription Image")
+    st.markdown("## Extract Medicines From Prescription Image")
     st.markdown(
         "Upload a prescription image (JPG, PNG, JPEG). "
         "MedSafe AI uses OCR + AI to extract medicines and their active salts."
@@ -374,7 +372,7 @@ with tab2:
 
     if not OCR_AVAILABLE:
         st.warning(
-            "⚠️ OCR libraries (pytesseract / Pillow) are not installed. "
+            "OCR libraries (pytesseract / Pillow) are not installed. "
             "Install them with: `pip install pytesseract Pillow`"
         )
 
@@ -386,7 +384,7 @@ with tab2:
 
     col_ocr_btn, col_ocr_opt = st.columns([1, 2])
     with col_ocr_btn:
-        ocr_btn = st.button("🔍 Read Prescription", key="ocr_btn", disabled=(uploaded_file is None))
+        ocr_btn = st.button("Read Prescription", key="ocr_btn", disabled=(uploaded_file is None))
 
     with col_ocr_opt:
         use_ai_extract = st.checkbox(
@@ -397,7 +395,7 @@ with tab2:
         )
 
     if ocr_btn and uploaded_file is not None:
-        with st.spinner("📖 Reading prescription..."):
+        with st.spinner("Reading prescription..."):
             raw_text = extract_text_from_image(uploaded_file)
             st.session_state.last_ocr_text = raw_text
 
@@ -406,7 +404,7 @@ with tab2:
                 f'<div class="error-box">{raw_text}</div>', unsafe_allow_html=True
             )
         else:
-            with st.expander("📝 Raw OCR Text", expanded=False):
+            with st.expander("Raw OCR Text", expanded=False):
                 st.text(raw_text)
 
             medicine_names = get_all_medicine_names()
@@ -414,12 +412,12 @@ with tab2:
             # LLM-based extraction
             extracted = None
             if use_ai_extract and OLLAMA_AVAILABLE:
-                with st.spinner("🤖 AI extracting medicines and salts..."):
+                with st.spinner("AI extracting medicines and salts..."):
                     extracted = extract_medicines_with_llm(raw_text)
 
             # Fallback to rule-based
             if extracted is None:
-                with st.spinner("🔎 Applying rule-based extraction..."):
+                with st.spinner("Applying rule-based extraction..."):
                     rule_based = parse_ocr_text_rule_based(raw_text, medicine_names)
                     extracted = [
                         {
@@ -432,7 +430,7 @@ with tab2:
 
             st.session_state.ocr_medicines = extracted
 
-            st.markdown("### 💊 Detected Medicines & Drugs")
+            st.markdown("### Detected Medicines")
 
             if extracted:
                 for item in extracted:
@@ -454,18 +452,18 @@ with tab2:
                     )
 
                 # Show as JSON
-                with st.expander("📊 Structured JSON Output", expanded=False):
+                with st.expander("Structured JSON Output", expanded=False):
                     st.json(extracted)
 
                 logger.info(f"OCR extracted {len(extracted)} medicines from prescription.")
             else:
-                st.info("ℹ️ No medicines could be extracted. Try a clearer image.")
+                st.info("No medicines could be extracted. Try a clearer image.")
 
 # ═══════════════════════════════════════════════════════════════════════════
 # TAB 3 – SYMPTOM & DOUBT SOLVER
 # ═══════════════════════════════════════════════════════════════════════════
 with tab3:
-    st.markdown("## 🩺 Symptom & Doubt Solver")
+    st.markdown("## Symptom & Doubt Solver")
     st.markdown(
         "Describe your symptoms in plain language, or select from common symptoms below. "
         "Receive educational guidance including home remedies, yoga, diet tips, and warning signs."
@@ -480,7 +478,7 @@ with tab3:
             height=100,
             key="symptom_text_input",
         )
-        symptom_btn = st.button("🔍 Get Guidance", key="symptom_btn")
+        symptom_btn = st.button("Get Guidance", key="symptom_btn")
 
     with col_sym2:
         label_map = get_all_symptom_labels()
@@ -504,7 +502,7 @@ with tab3:
 
         if not combined_keys:
             st.markdown(
-                '<div class="warning-box">🤔 No recognizable symptoms found. '
+                '<div class="warning-box">No recognizable symptoms found. '
                 "Try describing differently or select from the list.</div>",
                 unsafe_allow_html=True,
             )
@@ -512,11 +510,11 @@ with tab3:
             advice_dict = get_symptom_advice(combined_keys)
 
             # Basic rule-based advice
-            st.markdown("### 📋 Basic Advice")
+            st.markdown("### Basic Advice")
             all_basic_advice = []
             for key, data in advice_dict.items():
                 st.markdown(
-                    f"**{data['icon']} {data['label']}**",
+                    f"**{data['label']}**",
                 )
                 for tip in data["advice"]:
                     st.markdown(f"- {tip}")
@@ -528,33 +526,33 @@ with tab3:
 
                 # Diet
                 if data["diet"]:
-                    with st.expander(f"🥗 Diet Tips for {data['label']}", expanded=False):
+                    with st.expander(f"Diet Tips for {data['label']}", expanded=False):
                         for d in data["diet"]:
                             st.markdown(f"- {d}")
 
                 # Warning
                 st.markdown(
-                    f'<div class="warning-box">⚠️ {data["warning"]}</div>',
+                    f'<div class="warning-box">{data["warning"]}</div>',
                     unsafe_allow_html=True,
                 )
                 st.divider()
 
             # AI Enhanced Advice
             if OLLAMA_AVAILABLE:
-                with st.spinner("🤖 Generating AI-enhanced advice..."):
+                with st.spinner("Generating AI-enhanced advice..."):
                     ai_advice = generate_symptom_explanation_with_llm(
                         symptom_text or ", ".join(selected_symptoms),
                         all_basic_advice,
                     )
                 if ai_advice:
-                    st.markdown("### 🤖 AI Enhanced Advice")
+                    st.markdown("### AI Enhanced Advice")
                     st.markdown(
-                        f'<div class="ai-advice">💚 <b>AI Enhanced Advice:</b> Here\'s a friendly medical guidance paragraph for you:<br><br>{ai_advice}</div>',
+                        f'<div class="ai-advice"><b>AI Enhanced Advice:</b><br><br>{ai_advice}</div>',
                         unsafe_allow_html=True,
                     )
             else:
                 st.info(
-                    "ℹ️ AI-enhanced explanations require Ollama (LLaMA 3). "
+                    "AI-enhanced explanations require Ollama (LLaMA 3). "
                     "Install Ollama and pull the llama3 model for richer guidance."
                 )
 
@@ -564,7 +562,7 @@ with tab3:
 # TAB 4 – SIDE-EFFECT MONITOR
 # ═══════════════════════════════════════════════════════════════════════════
 with tab4:
-    st.markdown("## ⚠️ Experience & Side-Effect Monitor")
+    st.markdown("## Experience & Side-Effect Monitor")
     st.markdown(
         "Log your post-medication experience. MedSafe AI analyzes your inputs and "
         "provides educational insights about possible contributing factors."
@@ -606,12 +604,12 @@ with tab4:
         key="se_experience",
     )
 
-    se_btn = st.button("📊 Analyze Experience", key="se_analyze_btn")
+    se_btn = st.button("Analyze Experience", key="se_analyze_btn")
 
     if se_btn:
         if not se_experience.strip():
             st.markdown(
-                '<div class="error-box">⚠️ Please describe your experience before submitting.</div>',
+                '<div class="error-box">Please describe your experience before submitting.</div>',
                 unsafe_allow_html=True,
             )
         else:
@@ -620,7 +618,7 @@ with tab4:
 
             if not se_medicines:
                 st.markdown(
-                    '<div class="warning-box">ℹ️ No medicines entered – analysis will be limited.</div>',
+                    '<div class="warning-box">No medicines entered – analysis will be limited.</div>',
                     unsafe_allow_html=True,
                 )
 
@@ -637,7 +635,7 @@ with tab4:
             logger.info(f"Side-effect log: {log_entry}")
 
             # Display logged info
-            st.markdown("### 📋 Logged Information")
+            st.markdown("### Logged Information")
             c1, c2, c3 = st.columns(3)
             c1.metric("Age", se_age)
             c2.metric("Gender", se_gender)
@@ -652,32 +650,31 @@ with tab4:
 
             # AI Side-Effect Analysis
             if OLLAMA_AVAILABLE:
-                with st.spinner("🤖 Analyzing experience with AI..."):
+                with st.spinner("Analyzing experience with AI..."):
                     ai_se = generate_side_effect_explanation_with_llm(
                         se_age, se_gender, se_medicines or ["unspecified"],
                         se_dosages or ["unspecified"], se_experience
                     )
                 if ai_se:
-                    st.markdown("### 🤖 AI Analysis")
+                    st.markdown("### AI Analysis")
                     st.markdown(
-                        f'<div class="ai-advice">🔬 <b>Educational Analysis:</b><br><br>{ai_se}</div>',
+                        f'<div class="ai-advice"><b>Educational Analysis:</b><br><br>{ai_se}</div>',
                         unsafe_allow_html=True,
                     )
                 else:
                     st.info("AI response unavailable. Check Ollama is running with 'llama3' model.")
             else:
                 st.info(
-                    "ℹ️ AI analysis requires Ollama (LLaMA 3). "
+                    "AI analysis requires Ollama (LLaMA 3). "
                     "Basic logging has been recorded."
                 )
 
             # Quick risk check based on experience description
             quick_risk = compute_risk_score(se_experience, se_age)
             if quick_risk["score"] >= 30:
-                emoji, _ = get_risk_label_color(quick_risk["level"])
                 st.markdown(
-                    f'<div class="warning-box">⚠️ Risk indicator detected in your description: '
-                    f'<b>{emoji} {quick_risk["level"]}</b> — '
+                    f'<div class="warning-box">Risk indicator detected in your description: '
+                    f'<b>{quick_risk["level"]}</b> — '
                     f'{quick_risk["next_steps"][0]}</div>',
                     unsafe_allow_html=True,
                 )
@@ -685,7 +682,7 @@ with tab4:
     # Side Effect Log History
     if st.session_state.side_effect_logs:
         with st.expander(
-            f"📜 Session Log ({len(st.session_state.side_effect_logs)} entries)", expanded=False
+            f"Session Log ({len(st.session_state.side_effect_logs)} entries)", expanded=False
         ):
             for idx, entry in enumerate(reversed(st.session_state.side_effect_logs), 1):
                 st.markdown(
@@ -700,7 +697,7 @@ with tab4:
 # TAB 5 – EMERGENCY RISK PREDICTOR
 # ═══════════════════════════════════════════════════════════════════════════
 with tab5:
-    st.markdown("## 🚨 Emergency Risk Predictor")
+    st.markdown("## Emergency Risk Predictor")
     st.markdown(
         "Describe your current symptoms and health context. "
         "MedSafe AI calculates a transparent risk score based on predefined safety rules."
@@ -736,18 +733,18 @@ with tab5:
             key="rp_meds",
         )
 
-    rp_btn = st.button("⚡ Predict Emergency Risk", key="rp_btn")
+    rp_btn = st.button("Predict Emergency Risk", key="rp_btn")
 
     if rp_btn:
         if not rp_symptoms.strip():
             st.markdown(
-                '<div class="error-box">⚠️ Please describe your symptoms.</div>',
+                '<div class="error-box">Please describe your symptoms.</div>',
                 unsafe_allow_html=True,
             )
         else:
             rp_meds = [m.strip() for m in rp_meds_raw.split(",") if m.strip()]
 
-            with st.spinner("⚡ Computing risk score..."):
+            with st.spinner("Computing risk score..."):
                 result = compute_risk_score(
                     rp_symptoms, age=rp_age, gender=rp_gender, medicines=rp_meds
                 )
@@ -759,7 +756,7 @@ with tab5:
             css_class = f"risk-{level.lower()}"
 
             # Score display
-            st.markdown("### 📊 Risk Assessment Result")
+            st.markdown("### Risk Assessment Result")
 
             col_score, col_level = st.columns([1, 2])
 
@@ -771,17 +768,17 @@ with tab5:
                 )
 
             with col_level:
-                st.markdown(f"### {emoji_icon} Risk Level: **{level}**")
+                st.markdown(f"### Risk Level: **{level}**")
                 st.progress(min(score / 100, 1.0))
                 st.caption(f"Score: {score}/100 — based on symptom analysis, age group, and medicine profile.")
 
             # Contributing factors
-            st.markdown("### 🔍 Contributing Factors")
+            st.markdown("### Contributing Factors")
             for reason in result["reasons"]:
                 st.markdown(f"- {reason}")
 
             # Next steps
-            st.markdown("### 📌 Recommended Next Steps")
+            st.markdown("### Recommended Next Steps")
             next_class = "error-box" if level in ("CRITICAL", "HIGH") else "warning-box"
             steps_html = "".join(f"<li>{step}</li>" for step in result["next_steps"])
             st.markdown(
@@ -793,7 +790,7 @@ with tab5:
             st.markdown(
                 """
                 <div class="med-card" style="border-left:4px solid #6c757d; font-size:0.78rem; color:#adb5bd;">
-                ⚕️ <b>Disclaimer:</b> This risk score is for educational awareness only and is NOT a medical diagnosis.
+                <b>Disclaimer:</b> This risk score is for educational awareness only and is NOT a medical diagnosis.
                 The assessment is based on predefined rules and does not replace professional clinical evaluation.
                 Always consult a qualified healthcare provider for any medical concern.
                 </div>
@@ -813,7 +810,7 @@ st.markdown(
     """
     <hr style="border-color:#30363d; margin-top:40px;">
     <div style="text-align:center; color:#6c757d; font-size:0.75rem; padding-bottom:20px;">
-    🩺 <b>MedSafe AI</b> &nbsp;|&nbsp; Intelligent Medicine Safety Assistant &nbsp;|&nbsp;
+    <b>MedSafe AI</b> &nbsp;|&nbsp; Intelligent Medicine Safety Assistant &nbsp;|&nbsp;
     For educational and research purposes only &nbsp;|&nbsp;
     Not a substitute for professional medical advice, diagnosis, or treatment.
     </div>
