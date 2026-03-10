@@ -1,1 +1,20 @@
 2026-03-09 09:35:12,001 | INFO | Interaction check: no interactions for ['aspirin']
+2026-03-10 08:56:19,591 | INFO | Interaction check: no interactions for ['paracetamol']
+2026-03-10 08:56:44,679 | INFO | Interaction check: no interactions for ['aspirin']
+2026-03-10 08:57:21,614 | ERROR | LLM interaction explanation error: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2026-03-10 08:57:22,632 | ERROR | LLM interaction explanation error: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2026-03-10 08:57:23,656 | ERROR | LLM interaction explanation error: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2026-03-10 08:57:23,657 | INFO | Interaction check: 3 warnings for ['aspirin', 'warfarin', 'metformin', 'ibuprofen']
+2026-03-10 08:57:59,844 | ERROR | LLM interaction explanation error: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2026-03-10 08:58:00,870 | ERROR | LLM interaction explanation error: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2026-03-10 08:58:01,902 | ERROR | LLM interaction explanation error: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2026-03-10 08:58:01,902 | INFO | Interaction check: 3 warnings for ['aspirin', 'warfarin', 'metformin', 'ibuprofen']
+2026-03-10 08:58:40,761 | ERROR | LLM symptom explanation error: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2026-03-10 08:58:40,762 | INFO | Symptom guidance: ['headache']
+2026-03-10 08:58:42,407 | ERROR | LLM symptom explanation error: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2026-03-10 08:58:42,408 | INFO | Symptom guidance: ['headache', 'stomach pain']
+2026-03-10 08:58:44,158 | ERROR | LLM symptom explanation error: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2026-03-10 08:58:44,159 | INFO | Symptom guidance: ['headache', 'stomach pain', 'back pain']
+2026-03-10 08:58:51,168 | ERROR | LLM symptom explanation error: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2026-03-10 08:58:51,418 | ERROR | LLM symptom explanation error: Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download
+2026-03-10 08:58:51,419 | INFO | Symptom guidance: ['headache', 'stomach pain', 'back pain']
