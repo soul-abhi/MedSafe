@@ -7,6 +7,7 @@ MED_DB = {
         "category": "Analgesic/Antipyretic",
         "brand_names": ["Crocin", "Dolo", "Calpol", "Tylenol"],
     },
+    #this for the varity
     "ibuprofen": {
         "generic": "Ibuprofen",
         "salt": "Ibuprofen",
